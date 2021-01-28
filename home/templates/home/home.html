@@ -1,0 +1,43 @@
+{% load static %}
+<html>
+
+<head>
+	<title>Taskmarker</title>
+	<link href="{% static 'home/test.css' %}" rel="stylesheet" type="text/css" />
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="{% static 'home/bm-list.js' %}"></script>
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<div id="page-banner">
+			<h1 class="title">Taskmarker</h1>
+			<p>By Abhishek Kumar!</p>
+			<form id="search">
+				<input type="text" name="search" placeholder="Search  Bookmarks..." />
+			</form>
+		</div>
+
+		<div id="list">
+			<h2>Today's Tasks</h2>
+			<ul>
+				{% for task in tasks %}
+				<li>
+					<span class="name">{{task.note}}</span>
+					<a class="delete" href="{% url 'deletetask' task.id %}">Dalete</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<form method="POST" action="{% url 'createtask' %}" id="add-bookmark">
+			{% csrf_token %}
+			<input type="text" name="note" placeholder="Add new bookmark..." required />
+			<button type="submit">Add Task</button>
+		</form>
+	</div>
+</body>
+
+</html>
